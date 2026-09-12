@@ -34,31 +34,38 @@ def CoherenceBounded (q : Emitter) : Prop :=
 theorem coherenceRatio_pos (q : Emitter) :
     0 < coherenceRatio q := by
   unfold coherenceRatio
-  positivity
+  have hden : 0 < 2 * q.T1 := by
+    exact mul_pos (by norm_num) q.T1_pos
+  exact div_pos q.T2_pos hden
 
 theorem coherenceRatio_le_one (q : Emitter)
     (h : CoherenceBounded q) :
     coherenceRatio q ≤ 1 := by
   unfold CoherenceBounded at h
   unfold coherenceRatio
-  have hden : 0 < 2 * q.T1 := by positivity
-  exact (div_le_one hden).2 h
+  have hden : 0 < 2 * q.T1 := by
+    exact mul_pos (by norm_num) q.T1_pos
+  apply (div_le_iff₀ hden).2
+  simpa using h
 
 theorem coherenceRatio_bounds (q : Emitter)
     (h : CoherenceBounded q) :
-    0 < coherenceRatio q ∧ coherenceRatio q ≤ 1 :=
-  ⟨coherenceRatio_pos q, coherenceRatio_le_one q h⟩
+    0 < coherenceRatio q ∧ coherenceRatio q ≤ 1 := by
+  exact ⟨coherenceRatio_pos q, coherenceRatio_le_one q h⟩
 
 theorem transformLimited_iff_coherenceRatio_eq_one (q : Emitter) :
     TransformLimited q ↔ coherenceRatio q = 1 := by
   unfold TransformLimited coherenceRatio
-  have hden : 2 * q.T1 ≠ 0 := by positivity
+  have hden : 2 * q.T1 ≠ 0 := by
+    have hpos : 0 < 2 * q.T1 := by
+      exact mul_pos (by norm_num) q.T1_pos
+    exact ne_of_gt hpos
   constructor
   · intro h
     rw [h]
     exact div_self hden
   · intro h
-    apply (div_eq_one hden).mp h
+    exact (div_eq_one.mp h)
 
 /-
 Next specification
