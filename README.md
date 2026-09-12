@@ -70,34 +70,83 @@ under the stated relaxation specification by
 This keeps the experimental measurement distinct from the Lean-verified
 consequences of the stated physical specification.
 
+## Combined indistinguishability specification
+
+A source-supported quantum-dot model combines coherence/dephasing and
+stochastic-relaxation timing-jitter effects multiplicatively.
+
+The combined quantity is
+
+``` text
+I = C L
+```
+
+or explicitly
+
+``` text
+I = (T2 / (2 T1))
+    (Γ_relaxation / (Γ_relaxation + Γ_X)).
+```
+
+The Lean formalization treats this equation as a stated physical model,
+rather than as a relation derived from the perovskite measurements.
+
+Under the existing positivity and coherence assumptions, Lean verifies
+
+``` text
+0 < I < 1
+```
+
+together with the component constraints
+
+``` text
+I < C
+I ≤ L.
+```
+
+Within the stated model, improving coherence alone therefore leaves
+indistinguishability constrained by the relaxation/timing-jitter factor,
+while improving the relaxation factor alone leaves indistinguishability
+constrained by coherence.
+
 ## Scientific boundary
 
-The coherence ratio
+The repository distinguishes three levels:
 
 ``` text
 C = T2 / (2 T1)
 ```
 
-and the relaxation-limited HOM quantity
+is the coherence specification;
 
 ``` text
 L = Γ_relaxation / (Γ_relaxation + Γ_X)
 ```
 
-remain separate specifications.
+is the stochastic-relaxation specification; and
 
-The repository does not infer a quantitative relation between `C` and
-measured HOM visibility without an explicit physical model supporting
-that relation.
+``` text
+I = C L
+```
+
+is the source-supported combined indistinguishability model.
+
+The combined model is not presented as a consequence derived from Dong's
+perovskite measurements. Lean verifies what follows mathematically once
+the model and its assumptions are stated.
+
+Source provenance and the boundary between the seminar specifications,
+supporting model literature, and Lean-verified consequences are recorded
+in `sources/README.md`.
 
 ## Next specification
 
-**Which experimentally supported assumptions admit a quantitative
-relation among exciton coherence, stochastic-relaxation timing jitter,
-and measured HOM visibility?**
+Test source-supported refinements of the combined model against
+interface-regulated perovskite measurements.
 
-This is the next specification to test against relationships and
-measurements established by the scientific work.
+The repository provides a place to admit candidate next specifications
+and check their consequences against relationships and measurements
+already represented in the formalization.
 
 ## Workflow
 
@@ -112,9 +161,39 @@ The current formalization verifies:
 -   the transform-limit characterization;
 -   positivity and strict upper bounds for the relaxation-limited HOM
     quantity;
--   the HOM visibility consequence under the stated bound;
--   monotonicity with increasing relaxation rate; and
--   antitonicity with increasing `Γ_X`.
+-   the HOM visibility consequence under the stated relaxation bound;
+-   monotonicity with increasing relaxation rate;
+-   antitonicity with increasing `Γ_X`;
+-   positivity and a strict upper bound for combined
+    indistinguishability;
+-   the strict coherence constraint `I < C`; and
+-   the relaxation constraint `I ≤ L`.
+
+## Repository structure
+
+``` text
+LeanPerovskite/
+    Basic.lean
+
+docs/
+    CU_seminar_260911/
+
+sources/
+    README.md
+
+LeanPerovskite.lean
+README.md
+lakefile.toml
+lean-toolchain
+```
+
+`LeanPerovskite/Basic.lean` contains the formalization.
+
+`docs/CU_seminar_260911/` records the CU seminar that motivated the
+initial formalization.
+
+`sources/README.md` records specification provenance and the current
+scientific boundary.
 
 ## Build
 
