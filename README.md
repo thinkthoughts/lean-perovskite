@@ -2,42 +2,53 @@
 
 Using Lean to formalize and test quantitative specifications for perovskite quantum light emission.
 
-## Initial scope
+## Initial specification
 
 This repository begins with a quantitative specification motivated by Yitong Dong's CU seminar,
 *Interface-regulated Perovskite Nanocrystals for Quantum Light Emissions*.
 
-The initial formalization focuses on the relationship between:
+For radiative recombination time `T1` and coherence/dephasing time `T2`, the initial specification is
 
-- exciton coherence,
-- radiative lifetime, and
-- photon indistinguishability.
+```text
+0 < T2 ≤ 2 T1
+```
 
-The goal is to make the stated relationships explicit in Lean and verify what follows from them.
+with normalized coherence
+
+```text
+C = T2 / (2 T1).
+```
+
+Lean verifies
+
+```text
+0 < C ≤ 1
+```
+
+and the transform-limit characterization
+
+```text
+T2 = 2 T1 ↔ C = 1.
+```
+
+## Scientific boundary
+
+The seminar also connects photon indistinguishability with coherence and identifies stochastic
+relaxation/time jitter as a limitation on HOM visibility. This repository does **not** identify
+measured HOM visibility with `C` without an explicit physical specification supporting that step.
+
+## Next specification
+
+**Which assumptions on stochastic relaxation and timing jitter admit a quantitative bound on HOM visibility?**
+
+This is the next boundary to test against relationships and measurements established by the scientific work.
 
 ## Workflow
 
-**Measurements → specification → verified consequences → next specifications**
-
-The repository is intended to provide a small, inspectable way to test next specifications against
-relationships and measurements already established by the scientific work.
+**Measurements → stated specification → Lean-verified consequence → next specification**
 
 ## Build
 
 ```text
 lake build
 ```
-
-## Structure
-
-```text
-LeanPerovskite/
-  Basic.lean
-LeanPerovskite.lean
-sources/
-  README.md
-```
-
-`LeanPerovskite/Basic.lean` contains the initial definitions and theorem statements.
-
-`sources/README.md` records the scientific source and the quantitative specification being formalized.

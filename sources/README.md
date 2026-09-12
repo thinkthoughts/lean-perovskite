@@ -4,25 +4,23 @@
 
 Yitong Dong  
 **Interface-regulated Perovskite Nanocrystals for Quantum Light Emissions**  
-University of Colorado seminar, September 11, 2026.
+CU seminar, September 11, 2026.
 
-## Initial quantitative specification
+## Slide-derived starting point
 
-The initial Lean target is motivated by the seminar's treatment of:
+The photographed seminar slides distinguish:
 
-- radiative recombination time `T1`,
-- coherence/dephasing time `T2`,
-- the transform-limit relation `T2 = 2 T1`, and
-- photon indistinguishability / two-photon interference.
+- `T1`: radiative recombination time;
+- `T2`: coherence/dephasing time;
+- the transform-limit relation `T2 = 2 T1`;
+- two-photon interference / HOM visibility;
+- stochastic relaxation and associated timing jitter as a limitation on HOM visibility.
 
-## Next specification
+The initial Lean model formalizes the coherence constraint and its mathematical consequences.
 
-Before adding a theorem relating these quantities to photon indistinguishability,
-record the exact physical relation and assumptions supported by the seminar
-slides and/or cited paper here.
+## Next source check
 
-The intended distinction is:
+Before introducing a theorem that quantitatively connects coherence ratio, timing jitter, and HOM
+visibility, record the exact physical equation and assumptions from Dong's cited work.
 
 **measurement → stated physical specification → Lean-verified consequence**
-
-This keeps experimental evidence and formal deduction separately inspectable.
