@@ -15,7 +15,7 @@
      [["@«lean-perovskite»:extraDep", "00000000000006bb"]]],
     ["imports",
      [["LeanPerovskite.Basic transitive imports (legacy)", "f48077ffe75ae87c"],
-      ["LeanPerovskite.Basic:importAllArts", "8f996d2e49342a7f"]]]]],
+      ["LeanPerovskite.Basic:importAllArts", "134e2a3c7de026e1"]]]]],
   ["libs",
    [["import dynlibs", "00000000000006bb"],
     ["package external libraries", "00000000000006bb"],
@@ -29,4 +29,4 @@
   ["Module.name: LeanPerovskite", "cee23a5cfe23ac3e"],
   ["Package.id?: (some lean-perovskite)", "5b992dcd717071bb"],
   ["Module.leanArgs: #[]", "00000000000006bb"]],
- "depHash": "e9e030c2b1c5dc5f"}
+ "depHash": "442e40da5f41eddc"}

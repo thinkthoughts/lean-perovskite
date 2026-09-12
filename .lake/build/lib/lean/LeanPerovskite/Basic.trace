@@ -1,9 +1,9 @@
 {"synthetic": false,
  "schemaVersion": "2025-09-10",
  "outputs":
- {"o": ["9bdff4e95bb0262b.olean"],
+ {"o": ["93f10fafcf51dbc6.olean"],
   "m": false,
-  "i": "c6e0e96af3ec795e.ilean",
+  "i": "c3450b4c78a58449.ilean",
   "c": "5a04aea3c36e990e.c"},
  "log":
  [{"message":
@@ -23,10 +23,10 @@
     ["module plugins", "00000000000006bb"]]],
   ["Lean 4.34.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d",
    "365244c167ac8c1d"],
-  ["/home/dan/lean-perovskite/LeanPerovskite/Basic.lean", "9f9cefe949acfc68"],
+  ["/home/dan/lean-perovskite/LeanPerovskite/Basic.lean", "5d4e9c2655aa0903"],
   ["options", "00000000000006bb"],
   ["isModule: false", "feefd2a0d3a1847e"],
   ["Module.name: LeanPerovskite.Basic", "bae81fe34d4daa5c"],
   ["Package.id?: (some lean-perovskite)", "5b992dcd717071bb"],
   ["Module.leanArgs: #[]", "00000000000006bb"]],
- "depHash": "ee4cd531a9eb7721"}
+ "depHash": "1f0e911a71493472"}
