@@ -1,0 +1,32 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["f503a5d42ff3b883.olean"],
+  "m": false,
+  "i": "296cc9ca793045b7.ilean",
+  "c": "a67f8510e1971c2a.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=/home/dan/lean-perovskite/.lake/packages/Cli/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/batteries/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/Qq/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/aesop/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/importGraph/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/plausible/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/packages/mathlib/.lake/build/lib/lean:/home/dan/lean-perovskite/.lake/build/lib/lean /home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lean /home/dan/lean-perovskite/LeanPerovskite.lean -o /home/dan/lean-perovskite/.lake/build/lib/lean/LeanPerovskite.olean -i /home/dan/lean-perovskite/.lake/build/lib/lean/LeanPerovskite.ilean -c /home/dan/lean-perovskite/.lake/build/ir/LeanPerovskite.c --setup /home/dan/lean-perovskite/.lake/build/ir/LeanPerovskite.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["deps",
+   [["«lean-perovskite»/LeanPerovskite:extraDep",
+     [["@«lean-perovskite»:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["LeanPerovskite.Basic transitive imports (legacy)", "f48077ffe75ae87c"],
+      ["LeanPerovskite.Basic:importAllArts", "8f996d2e49342a7f"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d",
+   "365244c167ac8c1d"],
+  ["/home/dan/lean-perovskite/LeanPerovskite.lean", "a877106e00d2d365"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanPerovskite", "cee23a5cfe23ac3e"],
+  ["Package.id?: (some lean-perovskite)", "5b992dcd717071bb"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "e9e030c2b1c5dc5f"}
