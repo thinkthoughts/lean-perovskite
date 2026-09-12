@@ -65,7 +65,8 @@ theorem transformLimited_iff_coherenceRatio_eq_one (q : Emitter) :
     rw [h]
     exact div_self hden
   · intro h
-    exact div_eq_one.mp h
+    have h' : q.T2 = 1 * (2 * q.T1) := (div_eq_iff hden).mp h
+    simpa using h'
 
 /-
 Next specification
