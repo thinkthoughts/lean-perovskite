@@ -7,12 +7,15 @@ CU seminar on interface-regulated perovskite nanocrystals.
 Physical specifications are supplied explicitly as hypotheses or definitions.
 Lean checks the mathematical consequences of those stated specifications.
 
-The initial formalization contains two layers:
+The formalization contains three layers:
 
 1. A coherence specification based on `T2 ≤ 2 * T1`.
 2. A stochastic-relaxation specification that bounds HOM visibility by
 
      Γ_relaxation / (Γ_relaxation + Γ_X).
+
+3. A source-supported combined indistinguishability model in which coherence
+   and stochastic-relaxation limits contribute multiplicatively.
 
 The experimental relationships remain distinguishable from the consequences
 verified by Lean.
@@ -189,20 +192,113 @@ theorem relaxationLimit_antitone_gammaX
   nlinarith
 
 /-!
+## Combined indistinguishability specification
+
+A source-supported quantum-dot model combines coherence/dephasing and
+stochastic-relaxation timing-jitter effects multiplicatively.
+
+The model is represented here as
+
+  I = C * L
+
+where
+
+  C = T2 / (2 * T1)
+
+and
+
+  L = Γ_relaxation / (Γ_relaxation + Γ_X).
+
+This equation is treated as a stated physical model, not as a consequence
+derived by Lean from the perovskite measurements.
+-/
+
+/-- Combined source-supported photon-indistinguishability model. -/
+noncomputable def combinedIndistinguishability
+    (q : Emitter) (r : RelaxationSpec) : ℝ :=
+  coherenceRatio q * relaxationLimit r
+
+theorem combinedIndistinguishability_pos
+    (q : Emitter)
+    (r : RelaxationSpec) :
+    0 < combinedIndistinguishability q r := by
+  unfold combinedIndistinguishability
+  exact mul_pos (coherenceRatio_pos q) (relaxationLimit_pos r)
+
+/--
+Under the coherence bound, the combined indistinguishability is strictly below 1.
+-/
+theorem combinedIndistinguishability_lt_one
+    (q : Emitter)
+    (r : RelaxationSpec)
+    (hq : CoherenceBounded q) :
+    combinedIndistinguishability q r < 1 := by
+  unfold combinedIndistinguishability
+  have hCpos : 0 < coherenceRatio q := coherenceRatio_pos q
+  have hCle : coherenceRatio q ≤ 1 := coherenceRatio_le_one q hq
+  have hLpos : 0 < relaxationLimit r := relaxationLimit_pos r
+  have hLlt : relaxationLimit r < 1 := relaxationLimit_lt_one r
+  nlinarith
+
+/--
+The combined indistinguishability is strictly below the coherence factor,
+because the relaxation factor is positive and strictly below 1.
+-/
+theorem combinedIndistinguishability_lt_coherence
+    (q : Emitter)
+    (r : RelaxationSpec) :
+    combinedIndistinguishability q r < coherenceRatio q := by
+  unfold combinedIndistinguishability
+  have hCpos : 0 < coherenceRatio q := coherenceRatio_pos q
+  have hLlt : relaxationLimit r < 1 := relaxationLimit_lt_one r
+  nlinarith
+
+/--
+Under the coherence bound, the combined indistinguishability does not exceed
+the relaxation factor.
+-/
+theorem combinedIndistinguishability_le_relaxation
+    (q : Emitter)
+    (r : RelaxationSpec)
+    (hq : CoherenceBounded q) :
+    combinedIndistinguishability q r ≤ relaxationLimit r := by
+  unfold combinedIndistinguishability
+  have hLnonneg : 0 ≤ relaxationLimit r := le_of_lt (relaxationLimit_pos r)
+  have hCle : coherenceRatio q ≤ 1 := coherenceRatio_le_one q hq
+  nlinarith
+
+/--
+The combined model is bounded by both component constraints:
+strictly below coherence and no greater than the relaxation limit.
+-/
+theorem combinedIndistinguishability_component_bounds
+    (q : Emitter)
+    (r : RelaxationSpec)
+    (hq : CoherenceBounded q) :
+    combinedIndistinguishability q r < coherenceRatio q ∧
+      combinedIndistinguishability q r ≤ relaxationLimit r := by
+  exact ⟨
+    combinedIndistinguishability_lt_coherence q r,
+    combinedIndistinguishability_le_relaxation q r hq
+  ⟩
+
+/-!
+## Engineering reading
+
+Within the stated multiplicative model:
+
+* improving coherence alone leaves indistinguishability constrained by the
+  relaxation/timing-jitter factor;
+* improving the relaxation factor alone leaves indistinguishability constrained
+  by coherence.
+
+The Lean results verify those mathematical consequences of the stated model.
+
 ## Next specification
 
-The coherence ratio and relaxation-limited HOM visibility are intentionally
-kept as separate specifications.
-
-The next scientific question is whether an experimentally supported model
-admits a quantitative relation connecting:
-
-* exciton coherence,
-* stochastic-relaxation timing jitter, and
-* measured HOM visibility.
-
-Such a relation should be added only from an explicit physical model or source,
-rather than inferred from the present Lean definitions.
+The next scientific boundary is to test source-supported refinements of the
+combined model against interface-regulated perovskite measurements, rather than
+adding an unstated relation between the model and experimental data.
 -/
 
 end LeanPerovskite
